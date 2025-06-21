@@ -1,0 +1,10 @@
+/mysql_data/*
+/public/*
+.env
+docker-compose.yml
+docker-compose.yml.v2
+./letsencrypt/*
+/letsencrypt/*
+.letsencrypt/
+apache2/conf.d/vhosts.dev-tansanken.com.conf
+apache2/conf.d/*

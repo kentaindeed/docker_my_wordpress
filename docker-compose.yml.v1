@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mysql
+    hostname: mysql8
+    container_name: wordpress_mysql
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD:${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+    - 3306:3306
+
+  wordpress:
+    container_name: kentaindeed_wp
+    hostname: wordpress
+    image: wordpress
+    volumes:
+      - ./public/wp/:/var/www/html
+      - ./public/log/:/var/log/apache2/
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+    environment:
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
