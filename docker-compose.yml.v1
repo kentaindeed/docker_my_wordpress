@@ -16,7 +16,7 @@ services:
     - 3306:3306
 
   wordpress:
-    container_name: kentaindeed_wp
+    container_name: test_wp
     hostname: wordpress
     image: wordpress
     volumes:
