@@ -7,6 +7,7 @@ services:
     container_name: wordpress_mysql
     volumes:
       - ./mysql_data:/var/lib/mysql
+      - ./mysql/etc/my.cnf:/etc/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD:${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -16,12 +17,14 @@ services:
     - 3306:3306
 
   wordpress:
-    container_name: test_wp
+    container_name: tansanken_wp
     hostname: wordpress
     image: wordpress
     volumes:
       - ./public/wp/:/var/www/html
       - ./public/log/:/var/log/apache2/
+      #- ./apache2/etc/default/apache2.conf:/etc/apache2/apache2.conf
+      - ./apache2/etc/conf.d/:/etc/apache2/sites-enabled/
     links:
       - mysql
     depends_on:
